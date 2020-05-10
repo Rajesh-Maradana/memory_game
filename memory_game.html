@@ -1,0 +1,115 @@
+
+
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/fontawesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link type="text/css" rel="stylesheet" href="./css/wheelcolorpicker.css" />
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    <link rel="stylesheet" href="">	<style type="text/css">
+    	.wrapper{
+    		width:100%;
+            position:  absolute;
+            top : 35%;
+            left: 38%;
+            height:150px;
+            font-family: "Courier New", Courier, monospace ;
+    	}
+    
+		button:hover{
+			background-color: DodgerBlue;
+		}
+		#myinput:hover{
+			border-color: DodgerBlue;
+		}
+			/** { -webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; }*/
+	</style>
+</head>
+<body>
+	<div class="container wrapper col-lg-4 col-sm-2 well-lg">	
+		<div class="row">
+					
+			<div id="number_generate" >
+					<h2><center>Generate the number</center> </h2>
+					<div class="input-group">
+ 				 		  <span class="input-group-btn">
+    					  <button class="btn btn-info rounded-0" onclick="genrate()">Generate</button></span>
+				 		  <input type="text" class="ml-2 form-control" id='teat' value="" name="">
+  					</div>
+					<p id="number"></p>
+					<p id='text'></p>
+
+			</div>
+		</div>
+		<div class="row">
+			<div id="checker">
+				<h2>Guess the number</h2>
+				<input type="text" class="form-control mb-2" maxlength="6" id="myInput" name="">
+				<button class="btn btn-success rounded-0" onclick="guess()">Guess</button>
+				<button class="btn btn-danger rounded-0" onclick="replay()">Replay</button>
+				<b><p id="output" class="mt-2"></p></b>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $("#checker").hide();
+});
+
+function genrate() 
+		{
+		var digit= Math.floor(100000 + Math.random() * 900000);
+		var a=digit.toString()
+		localStorage.setItem('arr1', a);
+		$('#teat').val(digit);
+		document.getElementById("teat").innerHTML=digit; 
+		document.getElementById("text").innerHTML='Refreshing the page in 10 seconds..';
+	 	setTimeout(function() 
+	 			{ 
+                    $('#number_generate').hide(); 
+                     $('#checker').show();  
+                }, 5000); 
+               
+		}
+	 
+	 
+function guess() {
+		var a1=localStorage.getItem('arr1');
+		var ar = a1.split('');
+		var inputVal = document.getElementById("myInput").value;
+		if (inputVal)
+		{
+				var arr2 =inputVal.split('');
+				var count=0;
+				for(var i=0;i<ar.length;i++)
+					{
+				    	if(ar[i]==arr2[i]){
+				    		count++;
+				    	 }
+    				 }	
+    			document.getElementById("output").innerHTML=count+' correct guesses';
+		}
+		else
+		{
+			alert("Enter a number");
+		}
+
+		}
+function replay()
+		{
+			location.reload();
+		    $('#number_generate').show(); 
+		    $('#checker').hide();  	
+  	  	}
+      
+</script>
+</body>
+</html>
